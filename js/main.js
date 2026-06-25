@@ -161,7 +161,7 @@ function openPresent(box, index) {
 
     const msgArea = document.getElementById("giftMessages");
     if (openedCount === 3) {
-      msgArea.textContent = "🎉 You opened all your presents! I love you! 💕";
+      msgArea.textContent = "🎉 You opened all your presents! 💕";
       // Show the Click me button to advance
       const nextBtn = document.getElementById("slide3Next");
       if (nextBtn) {
