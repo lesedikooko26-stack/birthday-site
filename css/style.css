@@ -1,0 +1,613 @@
+/* ============================================
+   BIRTHDAY SITE — style.css
+   ============================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pink-light: #ffd6e0;
+  --pink-mid:   #ffb3c6;
+  --pink-deep:  #ff6b9d;
+  --red-heart:  #e63946;
+  --cream:      #fff5f7;
+  --text-dark:  #3a1a2e;
+  --font-main:  'Baloo 2', cursive;
+  --font-body:  'Nunito', sans-serif;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  font-family: var(--font-body);
+  background: linear-gradient(135deg, #ffe4ed 0%, #ffd6e8 50%, #ffcfe3 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── BG floating hearts ── */
+.bg-hearts {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+}
+.bg-heart {
+  position: absolute;
+  font-size: 1.4rem;
+  opacity: 0.22;
+  animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.22; }
+  90%  { opacity: 0.22; }
+  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+
+/* ── Confetti ── */
+#confetti-container {
+  position: fixed; inset: 0; pointer-events: none; z-index: 999; overflow: hidden;
+}
+.confetti-piece {
+  position: absolute;
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  animation: confettiFall 2.5s ease-in forwards;
+}
+@keyframes confettiFall {
+  0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ================================================
+   SLIDER
+   ================================================ */
+.slider-wrapper {
+  position: relative;
+  width: 100vw;
+  max-width: 900px;
+  height: 100dvh;
+  max-height: 600px;
+  z-index: 10;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+@media (min-width: 600px) {
+  .slider-wrapper {
+    width: min(95vw, 900px);
+    height: min(88vh, 580px);
+    border-radius: 28px;
+    box-shadow: 0 16px 60px #ff6b9d33;
+  }
+}
+
+.slider {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+  padding: 16px 16px 52px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@media (min-width: 600px) {
+  .slide { padding: 28px 36px 58px; }
+}
+
+/* Slide backgrounds */
+.slide-1 { background: radial-gradient(ellipse at 30% 30%, #fff0f5 0%, #ffd6e8 100%); }
+.slide-2 { background: radial-gradient(ellipse at 70% 20%, #fff5f8 0%, #fce4ec 100%); }
+.slide-3 { background: radial-gradient(ellipse at 50% 80%, #ffeaf3 0%, #ffd6e8 100%); }
+.slide-4 { background: radial-gradient(ellipse at 20% 60%, #fff0f5 0%, #fce4ec 100%); }
+
+/* ── Dots (display only — no click) ── */
+.dots {
+  position: absolute;
+  bottom: 14px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px;
+  pointer-events: none;
+  z-index: 30;
+}
+.dot {
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: #e0b8cc;
+  transition: background 0.3s, transform 0.2s;
+}
+.dot.active { background: #3a3a3a; transform: scale(1.25); }
+
+/* ── Shared titles ── */
+.slide-title {
+  font-family: var(--font-main);
+  font-size: clamp(1.2rem, 5vw, 1.9rem);
+  font-weight: 800;
+  align-self: flex-start;
+  margin-bottom: 6px;
+  flex-shrink: 0;
+}
+.slide-title.red  { color: var(--red-heart); }
+.slide-title.pink { color: var(--pink-deep); }
+
+.slide-sub {
+  font-family: var(--font-main);
+  color: var(--pink-deep);
+  font-size: clamp(0.8rem, 3.5vw, 1rem);
+  font-weight: 600;
+  align-self: flex-start;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+/* ── Click me button ── */
+.click-btn {
+  font-family: var(--font-main);
+  font-size: clamp(0.9rem, 4vw, 1rem);
+  font-weight: 700;
+  background: var(--pink-deep);
+  color: white;
+  border: 3px solid #c0396e;
+  border-radius: 999px;
+  padding: 9px 26px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 14px #ff6b9d55;
+  text-decoration: underline;
+  flex-shrink: 0;
+}
+.click-btn:hover  { transform: scale(1.07); box-shadow: 0 6px 20px #ff6b9d77; }
+.click-btn:active { transform: scale(0.96); }
+.bottom-btn { margin-top: 10px; }
+
+/* ================================================
+   SLIDE 1 — Birthday Card
+   ================================================ */
+.floating-hearts-slide {
+  position: absolute; left: 12px; top: 50px;
+  display: flex; flex-direction: column; gap: 2px;
+  pointer-events: none;
+}
+.fh {
+  font-size: clamp(0.8rem, 3vw, 1.2rem);
+  animation: driftRight 3s ease-in-out infinite alternate;
+  opacity: 0.8;
+}
+.fh:nth-child(odd) { animation-duration: 2.5s; }
+.fh:nth-child(3n)  { font-size: 0.75rem; }
+@keyframes driftRight {
+  from { transform: translateX(0) rotate(-10deg); }
+  to   { transform: translateX(16px) rotate(10deg); }
+}
+
+.slide1-card {
+  width: 100%; flex: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.card-inner {
+  background: white;
+  border-radius: 22px;
+  padding: clamp(18px, 5vw, 30px) clamp(18px, 6vw, 36px) clamp(16px, 4vw, 24px);
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 8px 32px #ffb3c666;
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+.card-deco {
+  position: absolute; top: 12px; right: 12px;
+  font-size: clamp(1.2rem, 4vw, 1.6rem);
+  display: flex; gap: 4px; flex-wrap: wrap; max-width: 80px;
+  justify-content: flex-end;
+}
+.bandaid {
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  position: absolute; top: -4px; right: 58px;
+}
+.card-text-bubble {
+  background: var(--pink-light);
+  border-radius: 18px;
+  padding: clamp(12px, 4vw, 18px) clamp(16px, 5vw, 28px);
+  width: 100%;
+}
+.bday-title {
+  font-family: var(--font-main);
+  font-size: clamp(1.6rem, 7vw, 2.4rem);
+  font-weight: 800;
+  color: var(--text-dark);
+  text-align: center;
+  line-height: 1.25;
+}
+.card-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%;
+}
+.heart-couple { font-size: clamp(1.4rem, 5vw, 2rem); }
+.kitty        { font-size: clamp(1.4rem, 5vw, 2rem); }
+
+/* ================================================
+   SLIDE 2 — Birthday Cake
+   ================================================ */
+.slide-2 {
+  justify-content: flex-start;
+  gap: 0;
+}
+
+.slide2-layout {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  flex: 1;
+  gap: 8px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 599px) {
+  .slide2-layout {
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    gap: 6px;
+  }
+  .messages-left, .messages-right {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    max-width: 100% !important;
+    justify-content: center;
+    gap: 6px !important;
+  }
+  .msg-bubble { font-size: 0.75rem !important; padding: 7px 10px !important; }
+  .cake-frame { padding: 10px 14px 8px !important; }
+  .cake-art   { font-size: 3.5rem !important; }
+  .candles    { font-size: 1rem !important; }
+  .hearts-hang { font-size: 0.9rem !important; letter-spacing: 3px !important; }
+  .slide-2 .bottom-btn { margin-top: 6px; }
+}
+
+.messages-left, .messages-right {
+  display: flex; flex-direction: column; gap: 10px;
+  max-width: 180px;
+  flex-shrink: 1;
+}
+.msg-bubble {
+  font-family: var(--font-main);
+  font-size: clamp(0.76rem, 2.5vw, 0.9rem);
+  font-weight: 600;
+  color: var(--red-heart);
+  background: white;
+  border: 2.5px solid var(--pink-mid);
+  border-radius: 16px;
+  padding: 9px 12px;
+  line-height: 1.4;
+  box-shadow: 0 3px 10px #ffb3c633;
+}
+.cake-center {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  flex-shrink: 0;
+}
+.cake-frame {
+  background: white;
+  border: 3px solid var(--pink-mid);
+  border-radius: 22px;
+  padding: clamp(10px, 3vw, 16px) clamp(14px, 4vw, 20px) clamp(8px, 2.5vw, 12px);
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  box-shadow: 0 6px 20px #ffb3c655;
+}
+.cake-emoji-wrap { display: flex; flex-direction: column; align-items: center; }
+.candles { display: flex; gap: 4px; font-size: clamp(1.1rem, 4vw, 1.5rem); }
+.candle { transition: opacity 0.4s, transform 0.4s; display: inline-block; }
+.candle.blown { opacity: 0; transform: translateY(-10px); }
+.cake-art { font-size: clamp(3.8rem, 12vw, 5.5rem); line-height: 1; }
+.blow-btn {
+  font-family: var(--font-main);
+  font-size: clamp(0.75rem, 3vw, 0.9rem);
+  background: var(--pink-light);
+  border: 2px solid var(--pink-deep);
+  border-radius: 999px;
+  padding: 5px 14px;
+  cursor: pointer;
+  color: var(--red-heart);
+  font-weight: 700;
+  transition: transform 0.15s;
+  white-space: nowrap;
+}
+.blow-btn:hover { transform: scale(1.06); }
+.blow-btn.done  { background: #d4f8e8; border-color: #5cb85c; color: #2d6a2d; }
+.hearts-hang {
+  font-size: clamp(0.85rem, 3vw, 1.1rem);
+  letter-spacing: 5px;
+  animation: sway 2s ease-in-out infinite alternate;
+}
+@keyframes sway {
+  from { transform: rotate(-4deg); }
+  to   { transform: rotate(4deg); }
+}
+
+/* ================================================
+   SLIDE 3 — Presents
+   ================================================ */
+.slide-3 {
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.presents-row {
+  display: flex;
+  gap: clamp(16px, 5vw, 36px);
+  align-items: flex-end;
+  justify-content: center;
+  margin-top: 8px;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+/* Each present has a flower on top + the box below */
+.present-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  max-width: 140px;
+}
+
+.present-flower {
+  font-size: clamp(1.8rem, 7vw, 2.6rem);
+  animation: floatFlower 2.5s ease-in-out infinite alternate;
+  display: block;
+  line-height: 1;
+}
+.present-wrapper:nth-child(2) .present-flower { animation-duration: 3s; }
+.present-wrapper:nth-child(3) .present-flower { animation-duration: 2s; }
+@keyframes floatFlower {
+  from { transform: translateY(0) rotate(-6deg); }
+  to   { transform: translateY(-8px) rotate(6deg); }
+}
+
+.present-box {
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  width: 100%;
+}
+.present-box:hover  { transform: scale(1.1) rotate(-3deg); }
+.present-box:active { transform: scale(0.95); }
+
+.present-closed {
+  font-size: clamp(3.5rem, 14vw, 5.5rem);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: block;
+  text-align: center;
+}
+
+.present-open { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; }
+.present-open.hidden { display: none; }
+
+.gift-reveal {
+  width: 100%;
+  min-height: 70px;
+  background: white;
+  border: 2.5px solid var(--pink-mid);
+  border-radius: 14px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 10px 8px;
+  font-family: var(--font-main);
+  font-size: clamp(0.72rem, 2.8vw, 0.88rem);
+  color: var(--red-heart);
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 4px 14px #ffb3c644;
+  gap: 4px;
+}
+
+.gift-messages {
+  margin-top: 10px;
+  font-family: var(--font-main);
+  color: var(--pink-deep);
+  font-size: clamp(0.8rem, 3.5vw, 1rem);
+  font-weight: 700;
+  text-align: center;
+  min-height: 24px;
+  padding: 0 8px;
+  animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
+
+/* ================================================
+   SLIDE 4 — Song / Photos
+   ================================================ */
+.slide-4 {
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+/* Inner scrollable area so all content is reachable on small screens */
+.slide4-scroll {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+/* hide scrollbar but keep scroll */
+.slide4-scroll::-webkit-scrollbar { width: 0; }
+
+.song-layout {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.record-player-deco, .vinyl-deco {
+  font-size: clamp(1.1rem, 4vw, 1.6rem);
+  line-height: 2.1;
+  text-align: center;
+  animation: pulse 2.2s ease-in-out infinite alternate;
+  flex-shrink: 0;
+}
+@media (max-width: 400px) {
+  .record-player-deco, .vinyl-deco { display: none; }
+}
+@keyframes pulse { from { transform: scale(1); } to { transform: scale(1.08); } }
+
+.photo-section { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; }
+.song-label {
+  font-family: var(--font-main);
+  font-size: clamp(0.85rem, 3.5vw, 1rem);
+  font-weight: 700;
+  color: var(--red-heart);
+}
+.photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+.photo-slot {
+  width: 100%;
+  aspect-ratio: 1.2 / 1;
+  border-radius: 12px;
+  border: 2.5px solid var(--pink-mid);
+  background: white;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 3px 10px #ffb3c633;
+}
+.photo-slot:hover { transform: scale(1.05) rotate(1deg); box-shadow: 0 6px 20px #ff6b9d44; }
+.memory-photo {
+  width: 100%; flex: 1;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  min-height: 0;
+}
+.photo-label {
+  font-family: var(--font-main);
+  font-size: clamp(0.65rem, 2.5vw, 0.78rem);
+  font-weight: 700;
+  color: var(--pink-deep);
+  padding: 3px 4px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.photo-slot.empty-slot {
+  min-height: 60px;
+}
+.photo-slot.empty-slot::after {
+  content: '📷 Add photo';
+  font-family: var(--font-main);
+  font-size: clamp(0.7rem, 3vw, 0.85rem);
+  color: #ccc;
+  text-align: center;
+}
+.photo-slot.empty-slot .memory-photo,
+.photo-slot.empty-slot .photo-label { display: none; }
+
+/* ── Music embed ── */
+.music-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.music-label {
+  font-family: var(--font-main);
+  font-size: clamp(0.85rem, 3.5vw, 1rem);
+  font-weight: 700;
+  color: var(--red-heart);
+  align-self: flex-start;
+}
+.music-embed-box {
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: white;
+  border: 2.5px solid var(--pink-mid);
+  box-shadow: 0 3px 12px #ffb3c633;
+}
+.music-embed-box iframe {
+  display: block;
+  width: 100%;
+  border: none;
+}
+.music-placeholder {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 4px;
+  padding: 18px 12px;
+  color: #cbb;
+  text-align: center;
+}
+.music-placeholder span { font-size: 2rem; }
+.music-placeholder p    { font-family: var(--font-main); font-size: 0.9rem; font-weight: 700; color: var(--pink-mid); }
+.music-placeholder small { font-size: 0.7rem; color: #ccc; line-height: 1.4; }
+
+/* ── Restart ── */
+.restart-row {
+  display: flex; justify-content: center;
+  width: 100%;
+  flex-shrink: 0;
+  padding: 4px 0 8px;
+}
+.restart-btn {
+  font-family: var(--font-main);
+  font-size: clamp(0.82rem, 3.5vw, 0.95rem);
+  font-weight: 700;
+  color: var(--red-heart);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.restart-btn:hover { transform: scale(1.1); }
+
+/* ── Lightbox ── */
+.lightbox {
+  position: fixed; inset: 0;
+  background: #000a;
+  z-index: 9999;
+  display: none;
+  align-items: center; justify-content: center;
+  cursor: zoom-out;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 92vw; max-height: 86vh;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px #0005;
+  object-fit: contain;
+}
+.close-lb {
+  position: absolute; top: 18px; right: 22px;
+  background: white; border: none;
+  border-radius: 50%;
+  width: 36px; height: 36px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #0003;
+  z-index: 10000;
+}
