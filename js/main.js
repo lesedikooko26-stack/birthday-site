@@ -94,6 +94,9 @@ function nextSlide() {
 }
 
 function restartSlides() {
+   const music = document.getElementById("bgMusic");
+   if (music) { music.pause(); music.currentTime = 0; }
+   
   currentSlide = 0;
   updateSlider();
 
