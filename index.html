@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Happy Birthday Sima! 🎂</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="music/Post Malone, Swae Lee - Sunflower (Spider-Man_ Into the Spider-Verse).mp3" type="audio/mpeg" />
+</audio>
+
+  <!-- Floating hearts background -->
+  <div class="bg-hearts" id="bgHearts"></div>
+
+  <!-- Confetti container -->
+  <div id="confetti-container"></div>
+
+  <!-- SLIDER WRAPPER -->
+  <div class="slider-wrapper">
+    <div class="slider" id="slider">
+
+      <!-- ===== SLIDE 1: Happy Birthday Card ===== -->
+      <div class="slide slide-1" id="slide-1">
+        <div class="floating-hearts-slide">
+          <span class="fh">🩷</span><span class="fh">❤️</span><span class="fh">🩷</span>
+          <span class="fh">💕</span><span class="fh">❤️</span><span class="fh">🩷</span>
+          <span class="fh">💗</span><span class="fh">❤️</span>
+        </div>
+        <div class="slide1-card">
+          <div class="card-inner">
+            <div class="card-deco">
+              <span class="flower">🌸</span><span class="flower">🌸</span><span class="flower">✨</span>
+              <span class="bandaid">🩹</span>
+            </div>
+            <div class="card-text-bubble">
+              <h1 class="bday-title">Happy Birthday<br/>Sima!</h1>
+            </div>
+            <div class="card-bottom">
+              <span class="heart-couple">🩷❤️</span>
+              <div class="kitty">🐱</div>
+              <button class="click-btn" onclick="nextSlide()">Click me!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SLIDE 2: Birthday Cake ===== -->
+      <div class="slide slide-2" id="slide-2">
+        <h2 class="slide-title red">Your Birthday Cake</h2>
+        <div class="slide2-layout">
+          <div class="messages-left">
+            <div class="msg-bubble">I will always care you no matter what 💕</div>
+            <div class="msg-bubble">You became someone I always enjoy talking to.</div>
+          </div>
+          <div class="cake-center">
+            <div class="cake-frame">
+              <div class="cake-emoji-wrap">
+                <div class="candles" id="candleRow">
+                  <span class="candle">🕯️</span>
+                  <span class="candle">🕯️</span>
+                  <span class="candle">🕯️</span>
+                </div>
+                <div class="cake-art">🎂</div>
+              </div>
+              <button class="blow-btn" id="blowBtn" onclick="blowCandles()">🎉 Blow candles!</button>
+            </div>
+            <div class="hearts-hang">💗 💕 🩷 ❤️ 💗</div>
+          </div>
+          <div class="messages-right">
+            <div class="msg-bubble">I hope to become the person you always run to in any situation.🌹</div>
+            <div class="msg-bubble">I hope you enjoy your birthday.</div>
+          </div>
+        </div>
+        <button class="click-btn bottom-btn" onclick="nextSlide()">Click me!</button>
+      </div>
+
+      <!-- ===== SLIDE 3: Open your presents ===== -->
+      <div class="slide slide-3" id="slide-3">
+        <h2 class="slide-title pink">Click to open your presents!</h2>
+        <p class="slide-sub">Hope you like them hehe</p>
+        <div class="presents-row">
+
+          <!-- Present 1 — Sakura 🌸 -->
+          <div class="present-wrapper">
+            <span class="present-flower">🌸</span>
+            <div class="present-box" onclick="openPresent(this, 0)">
+              <div class="present-closed">🎁</div>
+              <div class="present-open hidden">
+                <div class="gift-reveal" id="gift0"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Present 2 — Cherry Blossom 🌺 -->
+          <div class="present-wrapper">
+            <span class="present-flower">🌺</span>
+            <div class="present-box" onclick="openPresent(this, 1)">
+              <div class="present-closed">🎁</div>
+              <div class="present-open hidden">
+                <div class="gift-reveal" id="gift1"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Present 3 — Tulip 🌷 -->
+          <div class="present-wrapper">
+            <span class="present-flower">🌷</span>
+            <div class="present-box" onclick="openPresent(this, 2)">
+              <div class="present-closed">🎁</div>
+              <div class="present-open hidden">
+                <div class="gift-reveal" id="gift2"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="gift-messages" id="giftMessages"></div>
+        <!-- Next button only shows after all presents opened -->
+        <button class="click-btn bottom-btn" id="slide3Next" style="display:none" onclick="nextSlide()">Click me! 💕</button>
+      </div>
+
+      <!-- ===== SLIDE 4: A song for you ===== -->
+      <div class="slide slide-4" id="slide-4">
+        <h2 class="slide-title red">A song for you</h2>
+        <div class="slide4-scroll">
+          <div class="song-layout">
+            <div class="record-player-deco">🎵<br/>🎶<br/>💕<br/>🎵</div>
+            <div class="photo-section">
+              <p class="song-label">Your memories 📸</p>
+              <div class="photo-grid">
+                <!--
+                  =====================================================
+                  ADD YOUR PHOTO LINKS BELOW
+                  Replace src="" with your image path or URL.
+                  Local:  src="images/photo1.jpg"
+                  Online: src="https://i.imgur.com/yourimage.jpg"
+                  =====================================================
+                -->
+                <div class="photo-slot" onclick="openPhoto(this)">
+                  <img src="images/sima1.jpeg" alt="Photo 1" class="memory-photo" onerror="this.parentElement.classList.add('empty-slot')" />
+                  <span class="photo-label">💕 Memory 1</span>
+                </div>
+                <div class="photo-slot" onclick="openPhoto(this)">
+                  <img src="images/sima2.jpeg" alt="Photo 2" class="memory-photo" onerror="this.parentElement.classList.add('empty-slot')" />
+                  <span class="photo-label">🌸 Memory 2</span>
+                </div>
+                <div class="photo-slot" onclick="openPhoto(this)">
+                  <img src="images/sima3.jpeg" alt="Photo 3" class="memory-photo" onerror="this.parentElement.classList.add('empty-slot')" />
+                  <span class="photo-label">❤️ Memory 3</span>
+                </div>
+                <div class="photo-slot" onclick="openPhoto(this)">
+                  <img src="images/sima4.jpeg" alt="Photo 4" class="memory-photo" onerror="this.parentElement.classList.add('empty-slot')" />
+                  <span class="photo-label">✨ Memory 4</span>
+                </div>
+              </div>
+            </div>
+            <div class="vinyl-deco">🎵<br/>💿<br/>🎶<br/>🩷</div>
+          </div>
+
+          <!-- =====================================================
+               MUSIC EMBED SECTION
+               =====================================================
+               SPOTIFY: Paste your Spotify embed iframe here.
+                 Go to Spotify → right-click song → Share → Embed track
+                 Example:
+                 <iframe style="border-radius:12px"
+                   src="https://open.spotify.com/embed/track/YOUR_TRACK_ID?utm_source=generator"
+                   width="100%" height="80" frameBorder="0"
+                   allowfullscreen=""
+                   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                   loading="lazy"></iframe>
+
+               YOUTUBE: Paste your YouTube embed iframe here.
+                 Go to YouTube → Share → Embed → copy the iframe
+                 Example:
+                 <iframe width="100%" height="200"
+                   src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+                   title="YouTube video player" frameborder="0"
+                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                   allowfullscreen></iframe>
+               ===================================================== -->
+          <div class="music-section">
+            <p class="music-label">🎵 Your song</p>
+            <div class="music-embed-box" id="musicEmbed">
+             <iframe data-testid="embed-iframe" style="border-radius:12px" 
+             src="https://open.spotify.com/embed/track/0RiRZpuVRbi7oqRdSMwhQY?utm_source=generator&si=c44de3dc1f1d4411" 
+             width="100%" height="80" frameBorder="0" 
+             allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+             loading="lazy"></iframe>
+            </div>
+          </div>
+
+          <div class="restart-row">
+            <button class="restart-btn" onclick="restartSlides()">🔄 click to restart!</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /slider -->
+
+    <!-- Dots — display only, no click navigation -->
+    <div class="dots" id="dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  </div>
+
+  <!-- Photo lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightboxImg" src="" alt="" />
+    <button class="close-lb" onclick="closeLightbox()">✕</button>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
